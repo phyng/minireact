@@ -1,0 +1,23 @@
+{
+  "name": "@phyng/minireact",
+  "version": "0.0.1",
+  "description": "mini react for demo page",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run start",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phyng/minireact.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "phyng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phyng/minireact/issues"
+  },
+  "homepage": "https://github.com/phyng/minireact#readme"
+}
