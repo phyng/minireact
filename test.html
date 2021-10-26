@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test minireact</title>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="app2"></div>
+
+<script type="module">
+import { useState, useEffect, makeClass, render } from './index.js'
+
+const Head = () => {
+  const [count0, setCount0] = useState(0)
+  const btnClass = makeClass('btn')
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount0(count0 + 1)
+    }, 1000)
+    return () => {
+      clearInterval(id)
+    }
+  })
+
+  useEffect(() => {
+    const handleClick = () => {
+      alert(`handleClick: ${count0}`)
+    }
+    document.querySelector(`.${btnClass}`).addEventListener('click', handleClick)
+    return () => {
+      document.querySelector(`.${btnClass}`).removeEventListener('click', handleClick)
+    }
+  })
+
+  return [
+    `<style>
+      .${btnClass} {
+        background: #4caf50;
+        border: 1px solid #4caf50;
+        color: #FFF;
+        outline: none;
+      }
+    </style>`,
+    `<h1>Hello minireact ${count0}!</h1>`,
+    `<button class="${btnClass}">click me</button>`
+  ]
+}
+
+const Counter = () => {
+  const [count1, setCount1] = useState(0)
+  const [count2, setCount2] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount1(count1 + 0.5)
+    }, 1000)
+    return () => {
+      clearInterval(id)
+    }
+  })
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount2(count2 + Math.random())
+    }, 1000)
+    return () => {
+      clearInterval(id)
+    }
+  })
+
+  return [
+    ...Head(),
+    `
+      <div>count1 = ${count1}</div>
+      <div>count2 = ${count2}</div>
+      <div>count2 + count2 = ${count1 + count2}</div>
+    `
+  ]
+}
+
+render(document.getElementById("app"), Counter)
+render(document.getElementById("app2"), Counter)
+</script>
+
+</body>
+</html>
